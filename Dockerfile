@@ -1,4 +1,5 @@
-FROM golang:1.13
+FROM golang:1.15
+RUN apt update -y && apt install -y git  upx
 
 COPY main.go build.sh ./
 

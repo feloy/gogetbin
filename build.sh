@@ -22,7 +22,8 @@ DIR=$(mktemp -d)
     export GOPATH=$PWD
     go get $P || exit 4
     cd src/$P
-    go build -o artifact . || exit 5
+    go build -a -ldflags "-extldflags '-static -s'" -o artifact . || exit 5
+    upx artifact
 ) 1>&2 || exit $? # stdout/stderr are merged to stderr and exit status is bubbled up if not 0
 
 cat $DIR/src/$P/artifact # binary is output to stdout
